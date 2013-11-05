@@ -190,7 +190,7 @@ public class Crypto {
     /**
      * dekoduje base64 retazec na subor a ten vrati v podobe pola bajtov
      *
-     * @param base64String retazet reprezentujuci subor
+     * @param string retazet reprezentujuci subor
      * @return rozkodovany subor vo forme pola bajtov
      */
     public byte[] decodeBase64StringToByte(String string) {
