@@ -63,7 +63,9 @@ public class Sender extends Thread {
         try {
            while (!isInterrupted()) {
                String message = getNextMessageFromQueue();
-               sendMessageToClient(message);
+               if (message != null) {
+                   sendMessageToClient(message);
+               }
            }
         } catch (Exception e) {
            // Commuication problem

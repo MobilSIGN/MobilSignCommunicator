@@ -154,7 +154,7 @@ public class Crypto {
         Crypto c2 = new Crypto(mobileKey);
 
         //vyberiem si subor a zasifrujem ho a potom spatne rozsifrujem
-        File subor = new File("/home/jano/Downloads/ahoj.txt");
+        File subor = new File("/home/peter/Downloads/ahoj.txt");
         byte[] zasifSuborPole = Util.fileToByteArray(subor);
         System.out.println("Zacinam sifrovat");
         String zasifSubor = c1.encryptFile(zasifSuborPole);
@@ -176,7 +176,7 @@ public class Crypto {
 
         //rozsifrovany subor zapisem na disk
         try {
-            FileOutputStream fos = new FileOutputStream("/home/jano/Desktop/ahoj.txt");
+            FileOutputStream fos = new FileOutputStream("/home/peter/Desktop/ahoj.txt");
             fos.write(rozsifSuborPole);
         } catch (FileNotFoundException ex) {
             Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
