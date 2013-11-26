@@ -8,15 +8,6 @@ import java.net.Socket;
 import java.util.Queue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author jano
- */
 public class Listener extends Thread {
     
     private BufferedReader mIn; //citac
@@ -38,17 +29,14 @@ public class Listener extends Thread {
         System.out.println("Bezi listener");
         try {
            while (!isInterrupted()) {
-               System.out.println("while");
                String message = mIn.readLine();
                if (message == null || message.equals("")) {
                    // todo odstranit zo zoznamu klientov
                    System.out.println("Breakujem");
                    break;
                }
-               System.out.println("while 2");
                if (message != null){
                    mReceivedMessages.add(message);  
-                   System.out.println("Prijata sprava: " + message);
                }              
            }
         } catch (IOException ioex) {

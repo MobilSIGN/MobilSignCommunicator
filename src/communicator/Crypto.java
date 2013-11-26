@@ -43,7 +43,6 @@ public class Crypto {
         }
         StringBuilder builder = new StringBuilder();
         for (String iter : zasifrovaneChunks) {
-            //System.out.println(iter);
             builder.append(iter);
         }
         return builder.toString();
@@ -70,7 +69,6 @@ public class Crypto {
         }
         StringBuilder builder = new StringBuilder();
         for (String iter : zasifrovaneChunks) {
-            //System.out.println(iter);
             builder.append(iter);
         }
         return builder.toString();
@@ -166,13 +164,6 @@ public class Crypto {
 
         System.out.println(zasifSuborPole.length);
         System.out.println(rozsifSuborPole.length);
-
-        //kontrola
-       /* for(int i=0;i<rozsifSuborPole.length;i++){
-         if(zasifSuborPole[i] != rozsifSuborPole[i]){
-         System.out.println("CHYBA");
-         }
-         }*/
 
         //rozsifrovany subor zapisem na disk
         try {

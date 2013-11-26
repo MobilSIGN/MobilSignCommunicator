@@ -7,15 +7,6 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.concurrent.LinkedBlockingQueue;
 
-/*
- * To change this template, choose Tools | Templates
- * and open the template in the editor.
- */
-
-/**
- *
- * @author jano
- */
 public class Sender extends Thread {
     
     private LinkedBlockingQueue mMessageQueue; 
@@ -68,7 +59,7 @@ public class Sender extends Thread {
                }
            }
         } catch (Exception e) {
-           // Commuication problem
+           e.printStackTrace();
         }       
     }
     
