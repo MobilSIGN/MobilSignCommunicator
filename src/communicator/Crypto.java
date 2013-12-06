@@ -4,7 +4,6 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.UnsupportedEncodingException;
 import java.security.Key;
 import java.security.KeyPair;
 import java.security.KeyPairGenerator;
@@ -19,8 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.crypto.Cipher;
 import javax.crypto.NoSuchPaddingException;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.codec.binary.Hex;
 
 public class Crypto {
 
@@ -37,49 +34,55 @@ public class Crypto {
             Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    
+    public static byte[] encrypt(byte[] data, Key key) {
+        byte[] encryptedData = null;
+        try {
+            final Cipher cipher = Cipher.getInstance(ALGORITHM);
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            encryptedData = cipher.doFinal(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return encryptedData;
+    }
+    
+    public static byte[] decrypt(byte[] data, Key key) {
+        byte[] dectyptedData = null;
+        try {
+            final Cipher cipher = Cipher.getInstance(ALGORITHM);
+            cipher.init(Cipher.DECRYPT_MODE, key);
+            dectyptedData = cipher.doFinal(data);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return dectyptedData;
+    }
 
     public String encrypt(String text) {
-        try {
-            byte[] bytes = text.getBytes("UTF-8");
-            System.out.println(Hex.encodeHexString(bytes));
-            
-            return Base64.encodeBase64String(this.encryptPom(bytes));
-            //return Base64.encodeBase64String(text.getBytes("UTF-8"));
-            
-//        List<byte[]> chunks = Util.divideByteArray(text.getBytes(), 245);
-//        List<String> zasifrovaneChunks = new ArrayList<>();
-//        for (byte[] iter : chunks) {
-//            zasifrovaneChunks.add(Util.encodeByteToBase64String(this.encryptPom(iter)));
-//        }
-//        StringBuilder builder = new StringBuilder();
-//        for (String iter : zasifrovaneChunks) {
-//            builder.append(iter);
-//        }
-//        return builder.toString();
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+        List<byte[]> chunks = Util.divideByteArray(text.getBytes(), 245);
+        List<String> zasifrovaneChunks = new ArrayList<>();
+        for (byte[] iter : chunks) {
+            zasifrovaneChunks.add(Util.encodeByteToBase64String(this.encryptPom(iter)));
         }
-        return null;
+        StringBuilder builder = new StringBuilder();
+        for (String iter : zasifrovaneChunks) {
+            builder.append(iter);
+    }
+        return builder.toString();
     }
 
     public String decrypt(String text) {
-        try {
-            return new String(this.decryptPom(Base64.decodeBase64(text)), "UTF-8");
-            
-//        List<byte[]> chunks = Util.divideByteArray(text.getBytes(), 344);
-//        List<byte[]> rozsifrovaneChunks = new ArrayList<>();
-//        for (byte[] iter : chunks) {
-//            rozsifrovaneChunks.add(this.decryptPom(Util.decodeBase64StringToByte(new String(iter))));
-//        }
-//        StringBuilder builder = new StringBuilder();
-//        for (byte[] iter : rozsifrovaneChunks) {
-//            builder.append(new String(iter));
-//        }
-//        return builder.toString();
-        } catch (UnsupportedEncodingException ex) {
-            Logger.getLogger(Crypto.class.getName()).log(Level.SEVERE, null, ex);
+        List<byte[]> chunks = Util.divideByteArray(text.getBytes(), 344);
+        List<byte[]> rozsifrovaneChunks = new ArrayList<>();
+        for (byte[] iter : chunks) {
+            rozsifrovaneChunks.add(this.decryptPom(Util.decodeBase64StringToByte(new String(iter))));
         }
-        return null;
+        StringBuilder builder = new StringBuilder();
+        for (byte[] iter : rozsifrovaneChunks) {
+            builder.append(new String(iter));
+    }
+        return builder.toString();
     }
 
     public String encryptFile(byte[] subor) {
@@ -112,7 +115,7 @@ public class Crypto {
      * @return Encrypted text
      * @throws java.lang.Exception
      */
-    public byte[] encryptPom(byte[] text) {
+    private byte[] encryptPom(byte[] text) {
         byte[] cipherText = null;
         try {
             // get an RSA cipher object and print the provider
@@ -125,35 +128,7 @@ public class Crypto {
         }
         return cipherText;
     }
-    
-    public static byte[] encrypt(byte[] data, Key key) {
-        byte[] cipherText = null;
-        try {
-            final Cipher cipher = Cipher.getInstance(ALGORITHM);
-            
-            cipher.init(Cipher.ENCRYPT_MODE, key);
-            cipherText = cipher.doFinal(data);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        return cipherText;
-    }
-    
-    public static byte[] decrypt(byte[] data, Key key) {
-        byte[] dectyptedText = null;
-        try {
-            final Cipher cipher = Cipher.getInstance(ALGORITHM);
-
-            cipher.init(Cipher.DECRYPT_MODE, key);
-            dectyptedText = cipher.doFinal(data);
-
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-        return dectyptedText;
-    }
-  
-
+ 
     /**
      * Decrypt text using private key.
      *
@@ -162,7 +137,7 @@ public class Crypto {
      * @return plain text
      * @throws java.lang.Exception
      */
-    public byte[] decryptPom(byte[] text) {
+    private byte[] decryptPom(byte[] text) {
         byte[] dectyptedText = null;
         try {
             // get an RSA cipher object and print the provider
