@@ -24,7 +24,7 @@ public class Listener extends Thread {
     }
     
     @Override
-    public void run()
+    public void run() 
     {
         System.out.println("Bezi listener");
         try {
