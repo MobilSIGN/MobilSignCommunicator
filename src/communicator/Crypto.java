@@ -63,7 +63,7 @@ public class Crypto {
         List<byte[]> chunks = Util.divideByteArray(text.getBytes(), 245);
         List<String> zasifrovaneChunks = new ArrayList<>();
         for (byte[] iter : chunks) {
-            zasifrovaneChunks.add(Util.encodeByteToBase64String(this.encryptPom(iter)));
+            zasifrovaneChunks.add(Util.encodeByteToBase64String(this.encryptChunk(iter)));
         }
         StringBuilder builder = new StringBuilder();
         for (String iter : zasifrovaneChunks) {
@@ -76,7 +76,7 @@ public class Crypto {
         List<byte[]> chunks = Util.divideByteArray(text.getBytes(), 344);
         List<byte[]> rozsifrovaneChunks = new ArrayList<>();
         for (byte[] iter : chunks) {
-            rozsifrovaneChunks.add(this.decryptPom(Util.decodeBase64StringToByte(new String(iter))));
+            rozsifrovaneChunks.add(this.decryptChunk(Util.decodeBase64StringToByte(new String(iter))));
         }
         StringBuilder builder = new StringBuilder();
         for (byte[] iter : rozsifrovaneChunks) {
@@ -89,7 +89,7 @@ public class Crypto {
         List<byte[]> chunks = Util.divideByteArray(subor, 245);
         List<String> zasifrovaneChunks = new ArrayList<>();
         for (byte[] iter : chunks) {
-            zasifrovaneChunks.add(Util.encodeByteToBase64String(this.encryptPom(iter)));
+            zasifrovaneChunks.add(Util.encodeByteToBase64String(this.encryptChunk(iter)));
         }
         StringBuilder builder = new StringBuilder();
         for (String iter : zasifrovaneChunks) {
@@ -102,20 +102,22 @@ public class Crypto {
         List<byte[]> chunks = Util.divideByteArray(subor.getBytes(), 344);
         List<byte[]> rozsifrovaneChunks = new ArrayList<>();
         for (byte[] iter : chunks) {
-            rozsifrovaneChunks.add(this.decryptPom(Util.decodeBase64StringToByte(new String(iter))));
+            rozsifrovaneChunks.add(this.decryptChunk(Util.decodeBase64StringToByte(new String(iter))));
         }
         return Util.splitByteArray(rozsifrovaneChunks, 245);
     }
 
     /**
      * Encrypt the plain text using public key.
+     * 
+     * MALO BY TO BYT TO ISTE CO ENCRYPT, treba otestovat 
      *
      * @param text : original plain text
      * @param key :The public key
      * @return Encrypted text
      * @throws java.lang.Exception
      */
-    private byte[] encryptPom(byte[] text) {
+    private byte[] encryptChunk(byte[] text) {
         byte[] cipherText = null;
         try {
             // get an RSA cipher object and print the provider
@@ -131,13 +133,15 @@ public class Crypto {
  
     /**
      * Decrypt text using private key.
+     * 
+     * MALO BY TO BYT TO ISTE CO DECRYPT, treba otestovat 
      *
      * @param text :encrypted text
      * @param key :The private key
      * @return plain text
      * @throws java.lang.Exception
      */
-    private byte[] decryptPom(byte[] text) {
+    private byte[] decryptChunk(byte[] text) {
         byte[] dectyptedText = null;
         try {
             // get an RSA cipher object and print the provider
