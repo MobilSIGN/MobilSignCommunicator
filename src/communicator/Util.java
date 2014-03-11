@@ -15,6 +15,11 @@ import org.apache.commons.codec.binary.Base64;
 
 public class Util {
 
+    public static final String TYPE_SEND = "SEND:";
+    public static final String TYPE_PAIR = "PAIR:";
+    public static final String TYPE_RESP = "RESP:";
+    public static final String TYPE_MPUB = "MPUB:"; // mobile public
+    
     public static byte[] fileToByteArray(File file) {
         byte[] b;
         try {
