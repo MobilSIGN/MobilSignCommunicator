@@ -35,6 +35,10 @@ public class Crypto {
         }
     }
     
+    public void setKey(Key key) {
+        mKey = key;
+    }
+    
     public static byte[] encrypt(byte[] data, Key key) {
         byte[] encryptedData = null;
         try {
@@ -60,6 +64,7 @@ public class Crypto {
     }
 
     public String encrypt(String text) {
+        System.out.println("Encryptujem klucom: " + mKey);
         List<byte[]> chunks = Util.divideByteArray(text.getBytes(), 245);
         List<String> zasifrovaneChunks = new ArrayList<>();
         for (byte[] iter : chunks) {
@@ -67,12 +72,13 @@ public class Crypto {
         }
         StringBuilder builder = new StringBuilder();
         for (String iter : zasifrovaneChunks) {
-            builder.append(iter);
+            builder.append(iter.trim());
     }
         return builder.toString();
     }
 
     public String decrypt(String text) {
+        System.out.println("Decryptujem klucom: " + mKey);
         List<byte[]> chunks = Util.divideByteArray(text.getBytes(), 344);
         List<byte[]> rozsifrovaneChunks = new ArrayList<>();
         for (byte[] iter : chunks) {
@@ -80,7 +86,7 @@ public class Crypto {
         }
         StringBuilder builder = new StringBuilder();
         for (byte[] iter : rozsifrovaneChunks) {
-            builder.append(new String(iter));
+            builder.append(new String(iter).trim());
     }
         return builder.toString();
     }
