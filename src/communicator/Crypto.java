@@ -64,7 +64,7 @@ public class Crypto {
     }
 
     public String encrypt(String text) {
-        System.out.println("Encryptujem klucom: " + mKey);
+        //System.out.println("Encryptujem klucom: " + mKey);
         List<byte[]> chunks = Util.divideByteArray(text.getBytes(), 245);
         List<String> zasifrovaneChunks = new ArrayList<>();
         for (byte[] iter : chunks) {
@@ -78,7 +78,7 @@ public class Crypto {
     }
 
     public String decrypt(String text) {
-        System.out.println("Decryptujem klucom: " + mKey);
+        //System.out.println("Decryptujem klucom: " + mKey);
         List<byte[]> chunks = Util.divideByteArray(text.getBytes(), 344);
         List<byte[]> rozsifrovaneChunks = new ArrayList<>();
         for (byte[] iter : chunks) {
