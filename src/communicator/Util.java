@@ -32,10 +32,10 @@ public class Util {
 
     //funkcia na zistenie operacneho systemu
     public static PCOperacnySystem getOS() {
-        String name = System.getProperty("os.name");
-        if (name.equals("Linux")) {
+        String name = System.getProperty("os.name");        
+        if (name.contains("Linux")) {
             return PCOperacnySystem.LINUX;
-        } else if (name.equals("Windows")) {
+        } else if (name.contains("Windows")) {
             return PCOperacnySystem.WINDOWS;
         } else {
             return PCOperacnySystem.UNKNOWN;
