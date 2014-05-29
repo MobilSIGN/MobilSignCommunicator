@@ -19,7 +19,42 @@ public class Util {
     public static final String TYPE_PAIR = "PAIR:";
     public static final String TYPE_RESP = "RESP:";
     public static final String TYPE_MPUB = "MPUB:"; // mobile public
-    
+
+    //enumy na operacny system a architekturu
+    public static enum PCOperacnySystem {
+        LINUX, WINDOWS, UNKNOWN
+    };
+
+    public static enum PCArchitektura {
+        BIT32, BIT64, UNKNOWN
+    };
+
+    //funkcia na zistenie operacneho systemu
+    public static PCOperacnySystem getOS() {
+        String name = System.getProperty("os.name");
+        if (name.equals("Linux")) {
+            return PCOperacnySystem.LINUX;
+        } else if (name.equals("Windows")) {
+            return PCOperacnySystem.WINDOWS;
+        } else {
+            return PCOperacnySystem.UNKNOWN;
+        }
+    }
+
+    //funkcia na zistenie architektury
+    public static PCArchitektura getArch() {
+        String arch = System.getProperty("os.arch");        
+        if(arch.contains("x86")){
+            return PCArchitektura.BIT32;
+        }
+        else if(arch.contains("64")){
+            return PCArchitektura.BIT64;
+        }
+        else{
+            return PCArchitektura.UNKNOWN;
+        }
+    }
+
     public static byte[] fileToByteArray(File file) {
         byte[] b;
         try {
@@ -120,9 +155,9 @@ public class Util {
             return null;
         }
     }
-        
+
     public static void main(String[] args) {
-        System.out.println(dajSHA1CheckSum("/home/jano/Desktop/obrazok.jpg"));
+        System.out.println(getOS());
+        System.out.println(getArch());
     }
-    
 }
