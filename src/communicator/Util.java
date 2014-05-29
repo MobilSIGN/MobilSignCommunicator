@@ -41,6 +41,18 @@ public class Util {
             return PCOperacnySystem.UNKNOWN;
         }
     }
+
+    //funkcia na zistenie kolko bitovy je operacny system
+    public static PCArchitektura getArch() {
+        String name = System.getProperty("os.arch");
+        if (name.contains("x86")) {
+            return PCArchitektura.BIT32;
+        } else if (name.contains("64")) {
+            return PCArchitektura.BIT64;
+        } else {
+            return PCArchitektura.UNKNOWN;
+        }
+    }
     
     public static byte[] fileToByteArray(File file) {
         byte[] b;
