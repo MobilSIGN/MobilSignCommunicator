@@ -20,13 +20,14 @@ public class Util {
     public static final String TYPE_RESP = "RESP:";
     public static final String TYPE_MPUB = "MPUB:"; // mobile public
 
-    
     //enumy na operacny system a architekturu
     public static enum PCOperacnySystem {
+
         LINUX, WINDOWS, UNKNOWN
     };
 
     public static enum PCArchitektura {
+
         BIT32, BIT64, UNKNOWN
     };
 
@@ -53,7 +54,7 @@ public class Util {
             return PCArchitektura.UNKNOWN;
         }
     }
-    
+
     public static byte[] fileToByteArray(File file) {
         byte[] b;
         try {
@@ -153,9 +154,5 @@ public class Util {
             Logger.getLogger(Util.class.getName()).log(Level.SEVERE, null, ex);
             return null;
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(getOS());
     }
 }
